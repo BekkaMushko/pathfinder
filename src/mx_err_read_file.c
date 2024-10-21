@@ -21,8 +21,7 @@ static int search_index(char *str, char ***names, long int *names_size) {
     (*names) = (char **)mx_realloc((*names), (*names_size + 2) * sizeof(char *));
     (*names)[*names_size] = mx_strdup(str);
     (*names)[*names_size + 1] = NULL;
-    ++(*names_size);
-    return *names_size - 1;
+    return (*names_size)++;
 }
 
 static int read_data(int fd, char delim, t_bundle **bundles,

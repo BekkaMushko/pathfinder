@@ -3,20 +3,20 @@
 static void print_chain(t_island *isl, t_bundle *bun, int bundle_n,
                         int from, int to, char **names, char indicator) {
     int curr = from;
+    int index = 1;
     bool found = false;
     while (true) {
         found = false;
         for (int i = 0; i < bundle_n && !found; ++i) {
-            if ((isl[curr].name == bun[i].first && isl[bun[i].second].position != -1
-                && isl[bun[i].second].weight == isl[curr].weight + bun[i].dist)
-                || (isl[curr].name == bun[i].second && isl[bun[i].first].position != -1
-                && isl[bun[i].first].weight == isl[curr].weight + bun[i].dist)) {
+            if ((curr == bun[i].first && isl[bun[i].second].position == index)
+                || (curr == bun[i].second && isl[bun[i].first].position == index)) {
                 found = true;
+                ++index;
                 if (bun[i].first == to || bun[i].second == to) {
                     if (indicator == 'r') {
-                        mx_printstr(names[isl[curr].name]);
+                        mx_printstr(names[curr]);
                         mx_printstr(" -> ");
-                        mx_printstr(names[isl[to].name]);
+                        mx_printstr(names[to]);
                     }
                     else {
                         if (bun[i].first != from && bun[i].second != from) {
@@ -29,11 +29,11 @@ static void print_chain(t_island *isl, t_bundle *bun, int bundle_n,
                 }
                 else {
                     if (indicator == 'r')
-                        mx_printstr(names[isl[curr].name]);
+                        mx_printstr(names[curr]);
                     else
                         mx_printint(bun[i].dist);
                     mx_printstr(indicator == 'r' ? " -> " : " + ");
-                    curr = isl[curr].name == bun[i].first ? bun[i].second : bun[i].first;
+                    curr = curr == bun[i].first ? bun[i].second : bun[i].first;
                 }
             }
         }

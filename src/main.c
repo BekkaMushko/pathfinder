@@ -19,7 +19,6 @@ int main(int argc, char *argv[]) {
 
     islands = malloc(island_n * sizeof(t_island));
     for (int i = 0; i < island_n; ++i) {
-        islands[i].name = i;
         islands[i].position = -1;
         islands[i].weight = 0;
     }

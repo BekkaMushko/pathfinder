@@ -10,7 +10,6 @@ typedef struct s_bundle {
 }              t_bundle;
 
 typedef struct s_island {
-    int name;
     int position;
     unsigned int weight;
 }              t_island;
